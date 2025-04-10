@@ -32,9 +32,9 @@ pipeline {
 	stage('Deployment'){
 		steps{
 
-			// sh 'kubectl apply -f deployment.yaml'
-			//sh 'kubectl apply -f service.yaml'
-			sh 'echo "Deployment Done" '
+			sh 'kubectl apply -f deployment.yaml'
+			sh 'kubectl apply -f service.yaml'
+		
 		}
         }
         }
