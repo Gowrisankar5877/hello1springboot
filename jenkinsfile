@@ -29,7 +29,6 @@ pipeline {
                     }
                 }
             }
-        }
 	stage('Deployment'){
 		steps{
 
@@ -37,5 +36,7 @@ pipeline {
 			sh 'kubectl apply -f service.yaml'
 		}
         }
+        }
+	
     }
-}
+
