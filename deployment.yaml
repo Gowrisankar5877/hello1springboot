@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: k8sexamimgdeploy
+  name: k8sexamimgdeploy
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: k8sexamimgdeploy
+  template:
+    metadata:
+      labels:
+        app: k8sexamimgdeploy
+    spec:
+      containers:
+      - image: gowri5877/k8sexamimag
+        name: k8sexamimag
+        
