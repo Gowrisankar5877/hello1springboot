@@ -1,12 +1,10 @@
 pipeline {
     agent any
-
+     environment {
+    DOCKERHUB_TOKEN = credentials('docker-hub-credential')
+  }
     stages {
-	stage('environment setup'){
-	 environment{
-                DOCKERHUB_TOKEN = credentials('docker-hub-credential')
-            }
-	}
+	
         stage('Checkout') {
             steps {
                 checkout scm
