@@ -2,6 +2,11 @@ pipeline {
     agent any
 
     stages {
+	stage('environment setup'){
+	 environment{
+                DOCKERHUB_TOKEN = credentials('docker-hub-credential')
+            }
+	}
         stage('Checkout') {
             steps {
                 checkout scm
@@ -13,20 +18,15 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME.startsWith('feature/')) {
                         echo "Running tests on feature branch"
-                        // Add your build and test commands here
                         sh 'mvn clean install'
                         sh 'mvn test'
                     } else if (env.BRANCH_NAME == 'development') {
                         echo "Building, testing, and pushing Docker image on development branch"
-                        // Add your build and test commands here
                         sh 'mvn clean install'
                         sh 'mvn test'
-
-                        // Docker build and push
-                        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                            sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
-                            sh 'docker build -t your-dockerhub-username/your-image-name:latest .'
-                            sh 'docker push your-dockerhub-username/your-image-name:latest'
+                         sh "echo ${DOCKERHUB_TOKEN} | docker login -u gowri5877 --password-stdin"
+                            sh 'docker build -t gowri5877/k8sexamimag .'
+                            sh 'docker push gowri5877/k8sexamimag'
                         }
                     }
                 }
